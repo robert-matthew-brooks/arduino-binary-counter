@@ -1,6 +1,6 @@
 {
-  "board": "arduino:avr:uno",
-  "port": "/dev/ttyACM0",
-  "sketch": "arduino-binary-counter.ino",
-  "output": "./build"
+    "board": "arduino:avr:uno",
+    "port": "/dev/ttyACM0",
+    "sketch": "arduino-binary-counter.ino",
+    "output": "./build"
 }

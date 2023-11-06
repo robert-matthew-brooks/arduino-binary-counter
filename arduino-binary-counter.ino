@@ -1,7 +1,18 @@
+#include "button.h"
+
 const int totalPins = 4;
 const int ledPins[totalPins] = {5, 4, 3, 2};
+const int upPin = 9;
+const int downPin = 8;
 
-int counter = 0;
+const int minValue = 0;
+const int maxValue = 15;
+
+const int tick = 50;
+
+int counter = 1;
+Button up(upPin);
+Button down(downPin);
 
 struct BinaryArray
 {
@@ -39,16 +50,25 @@ void setup()
   {
     pinMode(ledPins[i], OUTPUT);
   }
+  pinMode(upPin, INPUT);
+  pinMode(downPin, INPUT);
+
   Serial.begin(115200);
 }
 
 void loop()
 {
-  while (counter <= 15)
+  if (up.isPressed() && (counter < maxValue))
   {
     counter++;
-    BinaryArray ledsState = getBinaryArrayFromInt(counter);
-    lightLeds(ledsState);
-    delay(500);
   }
+  else if (down.isPressed() && (counter > minValue))
+  {
+    counter--;
+  };
+
+  BinaryArray ledsState = getBinaryArrayFromInt(counter);
+  lightLeds(ledsState);
+
+  delay(tick);
 }
