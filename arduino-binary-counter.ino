@@ -1,34 +1,54 @@
-int pattern = 0;
-int patterns[5][4] = {
-    {0, 0, 0, 0},
-    {0, 0, 0, 1},
-    {0, 0, 1, 1},
-    {0, 1, 1, 1},
-    {1, 1, 1, 1},
+const int totalPins = 4;
+const int ledPins[totalPins] = {5, 4, 3, 2};
+
+int counter = 0;
+
+struct BinaryArray
+{
+  int values[totalPins];
 };
-int totalPatterns = sizeof(patterns) / sizeof(patterns[0]);
+
+BinaryArray getBinaryArrayFromInt(int number)
+{
+  BinaryArray binaryArray = {0, 0, 0, 0};
+  int remainingUnits = number;
+  int power = totalPins - 1;
+
+  while (remainingUnits > 0)
+  {
+    if (remainingUnits >= pow(2, power))
+    {
+      remainingUnits -= pow(2, power);
+      binaryArray.values[power] = 1;
+    }
+    power--;
+  }
+
+  return binaryArray;
+}
+
+void lightLeds(BinaryArray ledsState)
+{
+  for (int i = 0; i < totalPins; i++)
+    digitalWrite(ledPins[i], ledsState.values[i] ? HIGH : LOW);
+};
 
 void setup()
 {
-  pinMode(2, OUTPUT);
-  pinMode(3, OUTPUT);
-  pinMode(4, OUTPUT);
-  pinMode(5, OUTPUT);
+  for (int i = 0; i < totalPins; i++)
+  {
+    pinMode(ledPins[i], OUTPUT);
+  }
   Serial.begin(115200);
 }
 
 void loop()
 {
-  digitalWrite(2, patterns[pattern][0] == 1 ? HIGH : LOW);
-  digitalWrite(3, patterns[pattern][1] == 1 ? HIGH : LOW);
-  digitalWrite(4, patterns[pattern][2] == 1 ? HIGH : LOW);
-  digitalWrite(5, patterns[pattern][3] == 1 ? HIGH : LOW);
-  pattern++;
-
-  if (pattern == totalPatterns)
+  while (counter <= 15)
   {
-    pattern = 0;
+    counter++;
+    BinaryArray ledsState = getBinaryArrayFromInt(counter);
+    lightLeds(ledsState);
+    delay(500);
   }
-
-  delay(1000);
 }
