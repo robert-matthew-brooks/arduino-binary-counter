@@ -1,6 +1,7 @@
 {
-    "board": "arduino:avr:uno",
-    "port": "/dev/ttyACM0",
+    "board": "arduino:avr:nano",
+    "port": "/dev/ttyUSB0",
     "sketch": "arduino-binary-counter.ino",
-    "output": "./build"
+    "output": "./build",
+    "configuration": "cpu=atmega328"
 }

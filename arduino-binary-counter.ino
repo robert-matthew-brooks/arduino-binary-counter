@@ -4,14 +4,14 @@
 #include "sevenseg.h"
 
 // LED constants
-const int ledPins[4] = {5, 4, 3, 2};
-const int upPin = 6;
-const int downPin = 7;
+const int ledPins[4] = {8, 9, 11, 12};
+const int upPin = 4;
+const int downPin = 3;
 
 // shift register constants
-const int dataPin = 8;
-const int shiftPin = 9;
-const int storagePin = 10;
+const int dataPin = 2;
+const int shiftPin = 6;
+const int storagePin = 5;
 
 // program constants
 const int minValue = 0;
